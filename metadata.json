@@ -1,0 +1,6 @@
+{
+  "name": "Wyze IAP & Subscription Training Simulator",
+  "description": "Interactive customer support training simulator for Wyze subscription management, cancellations, and new In-App Purchase (IAP) refund policies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
