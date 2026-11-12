@@ -11,7 +11,8 @@ import {
   AlertCircle, 
   Smartphone, 
   Layers,
-  Sparkles
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import { APPLE_STEPS, GOOGLE_STEPS, CUSTOMER_MACROS } from '../data/trainingData';
 import { ScreenshotStep } from '../types';
@@ -486,7 +487,17 @@ export const CancellationSection: React.FC<CancellationSectionProps> = ({ onOpen
               </h3>
               <ol className="list-decimal pl-5 space-y-3 text-xs md:text-sm text-slate-700 leading-relaxed">
                 <li>
-                  Go to <strong className="text-slate-900">my.wyze.com/account/plans</strong> in any browser.
+                  Go to{' '}
+                  <a 
+                    href="https://my.wyze.com/account/plans" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-emerald-700 hover:text-emerald-800 underline font-semibold inline-flex items-center gap-1"
+                  >
+                    my.wyze.com/account/plans
+                    <ExternalLink className="w-3 h-3" />
+                  </a>{' '}
+                  in any browser.
                 </li>
                 <li>
                   Sign in using the exact email address associated with their Wyze subscription.
@@ -511,7 +522,7 @@ export const CancellationSection: React.FC<CancellationSectionProps> = ({ onOpen
                   Agent Assisted Escalation Format
                 </h3>
                 <button
-                  onClick={() => handleCopyMacro(`ZD: \nService: \nIssue/Question: \nKey Details: `)}
+                  onClick={() => handleCopyMacro(`ZD (Ticket Link / Number): https://wyze.zendesk.com/agent/tickets/ \nService: \nIssue/Question: \nKey Details: `)}
                   className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors cursor-pointer"
                 >
                   <Copy className="w-3 h-3 text-slate-500" />
@@ -519,13 +530,13 @@ export const CancellationSection: React.FC<CancellationSectionProps> = ({ onOpen
                 </button>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
-                When a customer requests agent assistance to cancel and refund a website purchase, post the request under <code className="bg-slate-100 text-blue-700 px-1 py-0.5 rounded font-semibold text-xs">#wizards_services_livesupport</code> with this exact format:
+                When a customer requests agent assistance to cancel and refund a website purchase, post the request under <code className="bg-slate-100 text-indigo-700 px-1 py-0.5 rounded font-semibold text-xs">#wizards_services_livesupport</code> in Microsoft Teams with this exact format (providing the direct ZD link or number):
               </p>
               <pre className="p-4 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono whitespace-pre-wrap leading-relaxed shadow-inner">
-{`ZD: [Ticket #]
+{`ZD (Ticket Link / Number): https://wyze.zendesk.com/agent/tickets/[Ticket #]
 Service: [Cam Plus / Cam Protect]
 Issue/Question: Customer requesting cancel and refund for recent renewal
-Key Details: Verified website purchase via Recurly/Stripe. Renewal date: [Date].`}
+Key Details: Verified website purchase in Console / Services tab. Renewal date: [Date].`}
               </pre>
             </div>
           </div>

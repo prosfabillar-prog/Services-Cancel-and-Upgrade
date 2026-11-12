@@ -35,7 +35,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               </span>
             </div>
             <p className="text-xs md:text-sm text-amber-900 leading-relaxed">
-              Support agents must <strong>NOT</strong> provide Apple or Google Play refund steps immediately upon demand. You must complete the standard verification, offer approved compensation as guided by <code className="bg-amber-200/60 text-amber-950 px-1.5 py-0.5 rounded font-mono text-xs">wizards_services_livesupport</code>, and obtain <strong>explicit approval from SME Services Support</strong> before providing any platform refund instructions.
+              Support agents must <strong>NOT</strong> provide Apple or Google Play refund steps immediately upon demand. You must complete the 3-step verification (Console check, Services Tab confirmation, and alternate email/screenshot if not located), explain platform constraints, and obtain <strong>explicit approval from SME Services Support</strong> in <code className="bg-amber-200/60 text-amber-950 px-1.5 py-0.5 rounded font-mono text-xs">#wizards_services_livesupport</code> before providing any platform refund instructions.
             </p>
           </div>
         </div>
@@ -81,7 +81,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               <h4 className="text-base font-bold text-slate-900 mb-1">Wyze Website</h4>
               <p className="text-xs text-slate-500 mb-3 font-medium">Billed through Wyze.com (Stripe/Recurly)</p>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Wyze controls billing directly. Customers cancel at <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">my.wyze.com</code>. Assisted cancellations and refund reviews must be posted to internal Slack.
+                Wyze controls billing directly. Customers cancel at <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">my.wyze.com</code>. Assisted cancellations and refund reviews must be posted to internal Microsoft Teams (<code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">#wizards_services_livesupport</code>).
               </p>
             </div>
             <button
@@ -102,7 +102,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               <h4 className="text-base font-bold text-slate-900 mb-1">Apple App Store (iOS)</h4>
               <p className="text-xs text-slate-500 mb-3 font-medium">In-App Purchase via iPhone / iPad</p>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Apple controls the recurring payment token and charges. Customer must cancel inside iOS Settings. Wyze cannot issue refunds directly. Offer compensation first; SME approval required for refund steps.
+                Apple controls the recurring billing and charges. Customer must cancel inside iOS Settings. Wyze cannot issue refunds directly. Verify Console/Services tab first; SME approval required before providing refund steps.
               </p>
             </div>
             <button
@@ -123,7 +123,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
               <h4 className="text-base font-bold text-slate-900 mb-1">Google Play Store (Android)</h4>
               <p className="text-xs text-slate-500 mb-3 font-medium">In-App Purchase via Google Play</p>
               <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                Google controls payment processing. Customer cancels inside Google Play Store. Transaction ID begins with <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">GPA.</code>. Strict compensation &amp; SME gatekeeping applies.
+                Google controls payment processing. Customer cancels inside Google Play Store. Transaction ID begins with <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">GPA.</code>. Strict Console verification &amp; SME gatekeeping applies.
               </p>
             </div>
             <button
@@ -146,23 +146,25 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({ onNavigate }) 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
             <div className="text-xs font-bold text-slate-400">RULE 01</div>
-            <h4 className="text-sm font-semibold text-slate-900">Standard Process First</h4>
+            <h4 className="text-sm font-semibold text-slate-900">Standard Process for IAP (Required First)</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Always verify the customer's account in internal tools, check the <strong>Services tab</strong> to confirm the exact purchase source, and request screenshots or the official transaction ID.
+              1. Locate customer email in Console and check user profile status.<br />
+              2. Check Services Tab - Confirm the subscription source shows Apple IAP or Google Play IAP.<br />
+              3. If cx email cannot be located, ask for another email; if still not showing, ask for a screenshot of the charge.
             </p>
           </div>
           <div className="space-y-2">
             <div className="text-xs font-bold text-slate-400">RULE 02</div>
-            <h4 className="text-sm font-semibold text-slate-900">Explain &amp; Offer Compensation</h4>
+            <h4 className="text-sm font-semibold text-slate-900">Explain Platform Constraints</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Clarify that Wyze cannot issue refunds directly for mobile store purchases. Immediately present approved retention compensation as guided by <code className="bg-slate-100 px-1 rounded text-[11px]">wizards_services_livesupport</code>.
+              Clarify that Wyze cannot issue refunds directly for mobile store purchases because Apple and Google handle payment processing and credentials directly.
             </p>
           </div>
           <div className="space-y-2">
             <div className="text-xs font-bold text-slate-400">RULE 03</div>
             <h4 className="text-sm font-semibold text-slate-900">SME Approval Gate</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              If the customer declines compensation, do NOT provide Apple or Google refund links yet. You must receive <strong>explicit SME approval</strong> before sending platform refund links.
+              If the customer requests platform refund steps, do NOT send Apple or Google refund links yet. You must receive <strong>explicit SME approval</strong> from <code className="bg-slate-100 px-1 rounded text-[11px]">#wizards_services_livesupport</code> before providing refund steps.
             </p>
           </div>
         </div>

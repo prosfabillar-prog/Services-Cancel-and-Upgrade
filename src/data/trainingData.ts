@@ -19,7 +19,7 @@ export const SECTIONS: SectionMeta[] = [
     id: 'refunds', 
     title: 'Refund Policy & Gatekeeping', 
     shortTitle: 'Refunds (New IAP Policy)',
-    description: 'Strict 3-step IAP protocol, wizards_services_livesupport format & SME gate',
+    description: 'Console & Services tab verification, platform constraints & SME approval gate',
     iconName: 'CreditCard' 
   },
   { 
@@ -220,25 +220,25 @@ export const SCENARIOS: PracticeScenario[] = [
         id: 'opt-2a',
         text: 'Send the Google Play refund request URL immediately to defuse the customer\'s anger.',
         isCorrect: false,
-        feedback: 'CRITICAL POLICY BREACH! Agents must NOT provide Google Play refund steps immediately upon demand. You must follow the standard process, verify details, and offer approved compensation first.',
-        policyReference: 'Quick IAP Guidance: Never provide platform refund steps upfront.'
+        feedback: 'CRITICAL POLICY BREACH! Agents must NOT provide Google Play refund steps immediately upon demand. You must first locate the customer email in Console, check the Services tab, and request explicit approval from SME Services Support.',
+        policyReference: 'Quick IAP Guidance: Never provide platform refund steps upfront without SME approval.'
       },
       {
         id: 'opt-2b',
-        text: 'Follow the standard process: verify the account, check Services tab, request transaction ID (GPA format). Explain Wyze cannot issue IAP refunds directly. Offer approved compensation via wizards_services_livesupport. Only if declined AND SME approves, provide refund steps.',
+        text: 'Follow the standard process: 1) Locate customer email in Console and check user profile status. 2) Check Services Tab to confirm Google Play IAP. 3) If email cannot be located, ask for another email or charge screenshot. Explain Wyze cannot refund IAPs directly, and request explicit approval from SME Services Support before providing Google Play refund steps.',
         isCorrect: true,
-        feedback: 'Excellent! Follows the exact mandatory sequence: 1) Verify & get GPA ID, 2) Explain Wyze cannot refund IAP directly, 3) Offer approved compensation, 4) Await customer response before any escalation to SME.',
-        policyReference: 'Standard 3-gate process: Verify -> Offer Compensation -> SME approval gate.'
+        feedback: 'Excellent! Follows the exact mandatory sequence: 1) Locate in Console, 2) Check Services tab for IAP, 3) Request alternative email or screenshot if not found, 4) Explain Wyze cannot refund IAP directly, and 5) Obtain explicit approval from SME Services Support before providing refund steps.',
+        policyReference: 'Standard Process for IAP (Required First) + SME Approval Gate.'
       },
       {
         id: 'opt-2c',
         text: 'Post in wizards_services_livesupport asking for a direct credit card refund to be processed by the Wyze billing department.',
         isCorrect: false,
-        feedback: 'Incorrect. Wyze does not have the customer\'s credit card information for Google Play IAPs. Google holds the payment token; Wyze billing cannot refund a Google Play transaction.',
+        feedback: 'Incorrect. Wyze does not have the customer\'s credit card information for Google Play IAPs. Google processes the payment directly; Wyze billing cannot refund a Google Play transaction.',
         policyReference: 'Wyze cannot process direct credit card refunds for IAPs.'
       }
     ],
-    resolutionSummary: 'Standard protocol: Verify account, check Services tab, request GPA transaction ID. Explain Wyze cannot refund IAPs directly. Offer approved compensation via wizards_services_livesupport. Escalate to SME only if compensation is declined.'
+    resolutionSummary: 'Standard protocol: Locate customer email in Console, check Services tab (or ask for alternative email/charge screenshot if not found). Explain Wyze cannot refund IAPs directly. Obtain explicit SME Services Support approval before providing Google Play refund steps.'
   },
   {
     id: 'sc-3',
@@ -256,10 +256,10 @@ export const SCENARIOS: PracticeScenario[] = [
     options: [
       {
         id: 'opt-3a',
-        text: 'Verify account and purchase details. Post the assisted cancel and refund request under the wizards_services_livesupport channel using the exact format: ZD:, Service:, Issue/Question:, Key Details:.',
+        text: 'Verify account and purchase details. Post the assisted cancel and refund request under the wizards_services_livesupport channel in Microsoft Teams using the exact format: ZD (Ticket Link / Number):, Service:, Issue/Question:, Key Details:.',
         isCorrect: true,
-        feedback: 'Spot on! For website purchases, assisted cancellation and refund handling must be posted in wizards_services_livesupport with the standardized format.',
-        policyReference: 'Website assisted cancel/refund requests require the exact Slack template format.'
+        feedback: 'Spot on! For website purchases, assisted cancellation and refund handling must be posted in wizards_services_livesupport on Microsoft Teams with the standardized format including the ZD link/number.',
+        policyReference: 'Website assisted cancel/refund requests require the exact Microsoft Teams template format with ZD link/number.'
       },
       {
         id: 'opt-3b',
@@ -280,31 +280,31 @@ export const SCENARIOS: PracticeScenario[] = [
   },
   {
     id: 'sc-4',
-    title: 'Irate Apple IAP Refund Demand (Compensation Declined)',
+    title: 'Irate Apple IAP Refund Demand (SME Gate)',
     platform: 'Apple iOS',
     customerSentiment: 'Urgent',
-    customerMessage: "I do not want your free months of service or replacement sensors! I bought this through the App Store and I want my $39.99 back right now! Give me the refund steps immediately or I will file a formal complaint!",
+    customerMessage: "I bought this subscription through the App Store and I want my $39.99 back right now! Give me the refund steps immediately or I will file a formal complaint!",
     customerDetails: {
       ticketId: 'ZD #891552',
       customerEmail: 'm.davies@company.net',
-      servicesTab: 'IAP (Apple) - Transaction ID verified - Declined 2 months compensation offer',
+      servicesTab: 'IAP (Apple) - Verified via Console & Services tab',
       purchasePlatform: 'Apple iOS In-App Purchase',
       subscription: 'Cam Plus Unlimited (Annual)'
     },
     options: [
       {
         id: 'opt-4a',
-        text: 'Since the customer is irate and already refused compensation, paste reportaproblem.apple.com in the chat immediately to de-escalate.',
+        text: 'Since the customer is irate and demanding immediate action, paste reportaproblem.apple.com in the chat immediately to de-escalate.',
         isCorrect: false,
-        feedback: 'CRITICAL POLICY VIOLATION! Even if the customer is irate and has declined compensation, you MUST NOT provide Apple refund steps until you have EXPLICIT approval from SME Services Support.',
+        feedback: 'CRITICAL POLICY VIOLATION! Even if the customer is irate, you MUST NOT provide Apple refund steps until you have EXPLICIT approval from SME Services Support.',
         policyReference: 'SME Services Support approval is mandatory before providing Apple/Google refund steps.'
       },
       {
         id: 'opt-4b',
-        text: 'Acknowledge their frustration calmly. Reach out to SME Services Support in the designated internal channel to request explicit approval for platform refund steps. Once approval is granted by SME, provide reportaproblem.apple.com instructions.',
+        text: 'Acknowledge their frustration calmly. Explain Wyze cannot issue refunds directly for Apple IAPs. Consult SME Services Support in #wizards_services_livesupport to request explicit approval for platform refund steps. Once approval is granted by SME, provide reportaproblem.apple.com instructions.',
         isCorrect: true,
         feedback: 'Perfect! You held the required approval gate. SME Services Support must explicitly approve providing the platform refund steps. Only after SME gives the green light may you guide them to Apple.',
-        policyReference: 'Mandatory approval gate: Customer declines compensation -> SME explicitly approves -> Provide platform refund steps.'
+        policyReference: 'Mandatory approval gate: SME explicitly approves -> Provide platform refund steps.'
       },
       {
         id: 'opt-4c',
@@ -314,7 +314,7 @@ export const SCENARIOS: PracticeScenario[] = [
         policyReference: 'Remain professional and follow SME escalation protocol.'
       }
     ],
-    resolutionSummary: 'Customer declined compensation. DO NOT send Apple link yet. Consult SME Services Support first. With explicit SME approval, guide them to reportaproblem.apple.com.'
+    resolutionSummary: 'Explain Wyze cannot refund IAPs directly. DO NOT send Apple link yet. Consult SME Services Support in #wizards_services_livesupport first. With explicit SME approval, guide them to reportaproblem.apple.com.'
   },
   {
     id: 'sc-5',
@@ -362,23 +362,23 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     question: "What is the FIRST step for any In-App Purchase (IAP) concern?",
     options: [
       "Send them directly to the Apple or Google Play refund request page",
-      "Verify the customer's account, check the Services tab, and request the transaction ID or screenshots",
+      "Locate customer email in Console and check user profile status, check Services Tab to confirm Apple or Google IAP, and if email cannot be located, ask for another email or a screenshot of the charge",
       "Issue an immediate Wyze store credit without checking tools"
     ],
     correct: 1,
-    explanation: "Always follow the standard process first: Verify the customer's account, check the internal Services tab, and request screenshots or the transaction ID (e.g. GPA number for Google, invoice for Apple).",
+    explanation: "Always follow the standard process first: 1. Locate customer email in Console and check user profile status. 2. Check Services Tab - Confirm the subscription source shows Apple IAP or Google Play IAP. 3. If the cx email provided cannot be located, ask for another email to locate the charge; if still not showing, ask for a screenshot of the charge.",
     policyReference: "Quick IAP Guidance: Standard Process for IAP (Required First)"
   },
   {
     id: 2,
-    question: "If a charge is confirmed as an IAP (Apple/Google), what should you offer first instead of a refund?",
+    question: "Can Wyze directly issue refunds for In-App Purchases made through the Apple App Store or Google Play Store?",
     options: [
-      "A free Wyze Cam v4",
-      "Approved compensation as guided by wizards_services_livesupport",
-      "A direct refund back to their personal credit card from Wyze"
+      "Yes, any agent can issue a direct refund to the customer's credit card",
+      "No, Wyze cannot issue refunds directly because Apple and Google manage recurring billing and payment processing",
+      "Only if the customer contacts support within 24 hours of the charge"
     ],
     correct: 1,
-    explanation: "Wyze cannot issue refunds directly for IAPs since Apple and Google handle payment processing. The agent must offer approved compensation as guided by wizards_services_livesupport.",
+    explanation: "Wyze cannot issue refunds directly for mobile IAPs. Subscriptions purchased through Apple or Google are managed directly by those platforms.",
     policyReference: "Quick IAP Guidance: Confirmed IAP Handling"
   },
   {
@@ -386,12 +386,12 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
     question: "When are you allowed to assist a customer with Apple/Google platform refund steps?",
     options: [
       "Whenever the customer asks for it or appears upset",
-      "Only if the customer declines compensation AND you get explicit approval from SME Services Support",
+      "Only if explicitly approved by SME Services Support",
       "After 30 days have elapsed from the purchase date"
     ],
     correct: 1,
-    explanation: "If the customer declines approved compensation, agents may assist with platform refund steps ONLY if explicitly approved by SME Services Support.",
-    policyReference: "Quick IAP Guidance: Customer Declines Compensation Gate"
+    explanation: "Agents may assist with platform refund steps ONLY if explicitly approved by SME Services Support.",
+    policyReference: "Quick IAP Guidance: SME Approval Gate"
   },
   {
     id: 4,
@@ -402,7 +402,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
       "Apple Store Connect"
     ],
     correct: 1,
-    explanation: "Google Play manages all subscription billing, payment tokens, renewals, and cancellations for Android IAPs.",
+    explanation: "Google Play manages all subscription billing, renewals, and cancellations for Android IAPs.",
     policyReference: "Platform Ownership & Verification"
   },
   {
@@ -419,14 +419,14 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
   {
     id: 6,
-    question: "What is the mandatory format to post an assisted cancel/refund request for a Website purchase in wizards_services_livesupport?",
+    question: "What is the mandatory format to post an assisted cancel/refund request for a Website purchase in wizards_services_livesupport on Microsoft Teams?",
     options: [
       "Help! Need refund for user@example.com",
-      "ZD: [ticket], Service: [service], Issue/Question: [issue], Key Details: [details]",
+      "ZD (Ticket Link / Number): [link/ticket], Service: [service], Issue/Question: [issue], Key Details: [details]",
       "Ticket #12345 - Please refund $29.99 ASAP"
     ],
     correct: 1,
-    explanation: "Assisted cancel/refund requests for website purchases must strictly adhere to the 4-field format: ZD:, Service:, Issue/Question:, Key Details:.",
+    explanation: "Assisted cancel/refund requests for website purchases must strictly adhere to the 4-field Microsoft Teams format: ZD (Ticket Link / Number):, Service:, Issue/Question:, Key Details:.",
     policyReference: "Website Assisted Cancel/Refund Escalation Standard"
   }
 ];
@@ -446,9 +446,7 @@ export const CUSTOMER_MACROS = {
 4. Select your Wyze subscription and tap "Cancel subscription".
 5. Follow the on-screen prompts to confirm. Your subscription will not renew at the next billing cycle.`,
 
-  iapRefundRefusalOffer: `Thank you for reaching out regarding your subscription charge. Because this subscription was purchased directly through [Apple App Store / Google Play Store], Wyze does not have direct access to your payment information to issue a refund directly. 
-
-To help make this right for you today, I would love to offer you [Approved Compensation: e.g. 2 complimentary months of Cam Plus / service credit] applied directly to your Wyze account so you can continue enjoying uninterrupted features. Please let me know if you would like me to apply this for you!`,
+  iapDirectExplanation: `Thank you for reaching out regarding your subscription charge. Because this subscription was purchased directly through [Apple App Store / Google Play Store], Wyze does not manage your payment credentials or recurring billing to issue a refund directly. Subscriptions and refund evaluations for in-app purchases are handled directly by [Apple / Google].`,
 
   smeApprovedAppleRefund: `Thank you for your patience. Since your subscription was purchased through Apple, you can submit a refund request directly to Apple Support:
 1. Go to reportaproblem.apple.com in your web browser.
@@ -458,6 +456,64 @@ To help make this right for you today, I would love to offer you [Approved Compe
 5. Select your Wyze subscription charge and tap "Submit".
 
 Apple will review your request and send an update to your email within 48 hours.`,
+
+  smeApprovedGoogleRefund: `How to File a Refund Request Through Google:
+
+To request a refund, please visit the following webpage: play.google.com/refund
+Once you’re on the page, please scroll down to the Refund Request section and follow the step-by-step instructions provided there. This process will guide you through submitting your refund request directly to Google.
+
+It’s very important that you are logged into your Google account using the email address associated with your subscription. Being logged in with the correct account ensures that Google can identify your purchase and process your refund efficiently.
+
+1. Open Google Play:
+Go to play.google.com on your web browser.
+
+2. Sign In:
+If you're not already signed in, click on the "Sign In" button in the top right corner and enter your Google account credentials.
+
+3. Access Your Account Settings:
+Once signed in, click on your profile icon in the top right corner, then select "Payments & subscriptions" from the dropdown menu.
+
+4. Navigate to Order History:
+In the Payments & subscriptions section, click on "Budget & order history" to view your recent purchases and subscription details.
+
+5. Select the Transaction:
+Find the purchase or subscription for which you want to request a refund, and click on it to open the details.
+
+6. Click "Report a Problem":
+Under the transaction details, click the "Report a problem" button. This will open a list of issues you can report.
+
+7. Choose Your Issue:
+Select the reason for your refund request from the available options (e.g., "I didn’t mean to buy this," "I purchased this by accident," etc.).
+
+8. Submit the Request:
+After selecting the issue, follow the prompts to submit your refund request. You may need to provide additional details or comments to clarify your request.
+
+9. Confirmation:
+Once your request is submitted, you should receive an email confirmation. Google will review your request and notify you of the decision.`,
+
+  googleDisputeProcess: `How to File a Refund Dispute / Unauthorized Charge Claim Through Google:
+
+If your refund request was denied by Google, or if you believe an unauthorized or fraudulent charge occurred on your payment method:
+
+1. Locate Your Google Play Transaction ID:
+Check your bank or credit card statement for the charge (typically formatted as GOOGLE*Wyze or GOOGLE*Developer). Identify the corresponding Google Play order number starting with "GPA." (found in your Google Play receipt email or at pay.google.com).
+
+2. Rule Out Household or Family Purchases:
+Before filing a dispute, verify that family members, children, or linked family group members did not initiate or authorize the renewal.
+
+3. Submit an Unauthorized Charge Claim (Google Payment Center):
+Visit Google's official payment dispute portal:
+https://pay.google.com or https://support.google.com/googlepay/answer/7644063
+Navigate to "Report unauthorized charges" and submit the dispute form with your GPA order number, card details, and transaction date.
+
+4. Appeal a Denied Google Play Refund:
+If Google Play's automated refund system (play.google.com/refund) previously rejected your refund:
+- Open the refund decision email sent by Google Play.
+- Click the appeal link or reply directly with additional context (e.g., accidental renewal, unused subscription).
+- Alternatively, go to support.google.com/googleplay/gethelp to contact Google Play Customer Care directly via live chat or callback request.
+
+5. Resolution Timeline:
+Google typically investigates disputes and appeals within 3 to 10 business days. You will receive status updates directly at your registered Google email address.`,
 
   websiteUpgradeExplanation: `When you upgrade to the Cam Unlimited Plan ($9.99/mo or $99.99/yr) on the Wyze website, any existing subscription purchased through our website is canceled automatically. Your remaining paid balance from Cam Plus ($2.99/mo or $29.99/yr) is converted based on its remaining monetary amount and applied as a Free Trial onto your new Cam Unlimited Plan!
 

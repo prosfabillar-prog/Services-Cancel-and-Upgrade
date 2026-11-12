@@ -108,7 +108,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ userEmail }) => {
 
             <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed mb-6">
               {passed 
-                ? 'Congratulations! You demonstrated compliant understanding of the Quick IAP Policy, compensation pathways, and SME approval gates.' 
+                ? 'Congratulations! You demonstrated compliant understanding of the Quick IAP Policy, Console & Services verification, and SME approval gates.' 
                 : 'Please review the Quick IAP guidance and practice scenarios, then retake the assessment.'}
             </p>
 

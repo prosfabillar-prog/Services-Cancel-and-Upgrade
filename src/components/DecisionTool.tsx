@@ -41,7 +41,7 @@ export const DecisionTool: React.FC = () => {
           alertType: 'success',
           rule: 'Apple manages recurring billing. Guide customer to iPhone Settings → Apple Account → Subscriptions → Wyze → Cancel.',
           actionList: [
-            'Explain Apple manages billing tokens',
+            'Explain Apple manages recurring billing',
             'Provide 4-step iOS Settings guide',
             'CRITICAL: Never claim you canceled it from Wyze internal tools'
           ],
@@ -54,7 +54,7 @@ export const DecisionTool: React.FC = () => {
           alertType: 'success',
           rule: 'Google Play manages subscription billing. Guide customer to Play Store → Profile Icon → Payments & Subscriptions → Subscriptions → Cancel.',
           actionList: [
-            'Explain Google Play manages billing tokens',
+            'Explain Google Play manages recurring billing',
             'Provide Play Store step-by-step navigation',
             'Customer subscription will not renew next cycle'
           ],
@@ -84,15 +84,15 @@ export const DecisionTool: React.FC = () => {
     if (platform === 'website') {
       return {
         status: 'compliant',
-        title: 'Post Assisted Cancel/Refund to wizards_services_livesupport',
+        title: 'Post Assisted Cancel/Refund to Teams wizards_services_livesupport',
         alertType: 'info',
-        rule: 'Wyze controls website transactions. Post ticket details in Slack using the mandatory 4-field template.',
+        rule: 'Wyze controls website transactions. Post ticket details in Microsoft Teams (#wizards_services_livesupport) using the mandatory 4-field template with the ZD link and number.',
         actionList: [
           'Verify transaction in Stripe / Recurly under Services tab',
-          'Post using ZD:, Service:, Issue/Question:, Key Details:',
+          'Post using ZD (Ticket Link / Number):, Service:, Issue/Question:, Key Details:',
           'Wait for Tier 2 / Services support review'
         ],
-        macro: `ZD: [Ticket #]\nService: [Cam Plus]\nIssue/Question: Customer requested cancel and refund for renewal\nKey Details: Verified website purchase.`
+        macro: `ZD (Ticket Link / Number): https://wyze.zendesk.com/agent/tickets/[Ticket #]\nService: [Cam Plus]\nIssue/Question: Customer requested cancel and refund for renewal\nKey Details: Verified website purchase in Console / Services tab.`
       };
     }
 
@@ -100,32 +100,32 @@ export const DecisionTool: React.FC = () => {
     if (status === 'initial') {
       return {
         status: 'blocked',
-        title: 'STOP: Verify Account & Check Services Tab First',
+        title: 'STOP: Run Standard Process for IAP (Gate 1)',
         alertType: 'danger',
-        rule: 'DO NOT provide platform refund steps. You must first verify account, inspect Services tab, and request the Transaction ID.',
+        rule: 'DO NOT provide platform refund steps. Follow the required 3-step process: 1. Locate in Console. 2. Check Services Tab. 3. If email cannot be located, ask for another email or screenshot of the charge.',
         actionList: [
-          'Verify customer email in CRM',
-          'Confirm subscription is an Apple or Google IAP in Services tab',
-          'Request Google GPA transaction ID or Apple invoice screenshot',
-          'DO NOT send reportaproblem.apple.com or Google refund links yet'
+          '1. Locate customer email in Console and check user profile status',
+          '2. Check Services Tab - Confirm subscription source shows Apple IAP or Google Play IAP',
+          '3. If cx email cannot be located, ask for another email; if still not showing, ask for a screenshot of the charge',
+          'DO NOT send reportaproblem.apple.com or Google refund links at this stage'
         ],
-        macro: 'To help you with this subscription charge, could you please provide your order transaction ID (for Google Play: starts with GPA, for Apple: invoice screenshot)? This allows me to verify your account in our services system.'
+        macro: 'To help you check this subscription charge, could you please verify the email address associated with your Wyze account? If the charge might be under an alternate email or if you have a screenshot of the charge showing the details, please share that so we can locate the account in our Console.'
       };
     }
 
     if (status === 'verified') {
       return {
         status: 'warning',
-        title: 'Offer Approved Compensation (Gate 2)',
+        title: 'Explain Platform Constraints (Gate 2)',
         alertType: 'warning',
-        rule: 'Explain Wyze cannot refund IAPs directly. Present approved compensation as guided by wizards_services_livesupport.',
+        rule: 'Explain clearly that Wyze cannot issue refunds directly for mobile app purchases, as payments are managed directly by Apple or Google.',
         actionList: [
           'Explain Wyze cannot issue refunds directly for IAP charges',
-          'Offer approved compensation (e.g., 2 free months of service or service credit)',
-          'Wait for customer reaction before any further escalation',
-          'DO NOT provide platform refund steps at this stage'
+          'Clarify that Apple and Google manage payment processing directly',
+          'If the customer requests platform refund steps, escalate to SME Services Support',
+          'DO NOT provide platform refund links without SME approval'
         ],
-        macro: CUSTOMER_MACROS.iapRefundRefusalOffer
+        macro: CUSTOMER_MACROS.iapDirectExplanation
       };
     }
 
@@ -134,14 +134,14 @@ export const DecisionTool: React.FC = () => {
         status: 'blocked',
         title: 'HALT: SME Services Support Approval Required (Gate 3)',
         alertType: 'danger',
-        rule: 'Customer declined compensation. You are FORBIDDEN from giving platform refund steps without explicit SME approval.',
+        rule: 'Customer is requesting platform refund steps. You are FORBIDDEN from giving Apple or Google refund links without explicit SME approval.',
         actionList: [
-          'Acknowledge customer refusal calmly',
+          'Acknowledge customer request calmly',
           'Post ticket details to #wizards_services_livesupport requesting refund step authorization',
-          'WAIT for explicit SME approval',
+          'WAIT for explicit SME approval before taking further action',
           'DO NOT send refund URLs until green light is granted'
         ],
-        macro: 'I completely understand your position. I am conferring directly with our Senior Services Support team regarding your account details. Please allow me a brief moment while I check on the approved options for your case.'
+        macro: 'I completely understand your request. I am conferring directly with our Senior Services Support team regarding your account details. Please allow me a brief moment while I check on the approved options for your case.'
       };
     }
 
@@ -154,13 +154,13 @@ export const DecisionTool: React.FC = () => {
         actionList: [
           platform === 'apple'
             ? 'Guide customer to reportaproblem.apple.com'
-            : 'Guide customer to support.google.com/googleplay/workflow/8511911',
+            : 'Guide customer to play.google.com/refund (9-step Google Play refund process) or pay.google.com if filing a dispute/appeal',
           'Explain the platform will evaluate and issue the refund directly',
           'Document SME approval in the internal ticket notes'
         ],
         macro: platform === 'apple' 
           ? CUSTOMER_MACROS.smeApprovedAppleRefund 
-          : 'Since your purchase was billed by Google Play and approved by our support team, you can request a refund directly via Google Play Support at support.google.com/googleplay or through your Google Play order history.'
+          : CUSTOMER_MACROS.smeApprovedGoogleRefund
       };
     }
 
@@ -257,8 +257,8 @@ export const DecisionTool: React.FC = () => {
             <div className="space-y-2">
               {[
                 { id: 'initial', label: '1. Initial contact (Unverified)' },
-                { id: 'verified', label: '2. Verified in Services + Has Tx ID' },
-                { id: 'comp_offered', label: '3. Offered comp (Customer DECLINED)' },
+                { id: 'verified', label: '2. Located in Console & Services Tab' },
+                { id: 'comp_offered', label: '3. Platform refund requested (Need SME)' },
                 { id: 'sme_approved', label: '4. SME Services Support APPROVED' }
               ].map((st) => (
                 <button
